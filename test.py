@@ -16,7 +16,7 @@ style_path = 'images/style/'
 output_path = 'images/output/'
 alpha = 1
 
-if __name__ == '__main__':
+def main():
 
     content_images = os.listdir(content_path)
     style_images = os.listdir(style_path)
@@ -75,9 +75,13 @@ if __name__ == '__main__':
 
                 content_tensor = np.expand_dims(content_image, axis=0)
                 style_tensor = np.expand_dims(style_image, axis=0)
+                print('here')
                 result = sess.run(generated_img, feed_dict={content_input: content_tensor, style_input: style_tensor})
                 result_name = os.path.join(output_path, s.split('.')[0] + '_' + c.split('.')[0] + '.jpg')
                 print(result_name, ' is generated')
                 imsave(result_name, result[0])
         elapsed_time = datetime.now() - start_time
         print("total image:", image_count, " total_time ", elapsed_time, " average time:", elapsed_time / image_count)
+
+if __name__ == "__main__":
+    main()
